@@ -487,9 +487,9 @@ Game::~Game() {
 ---
 
 ## 13. Tác giả
-Tác giả: 25730131, 25730120, 25730138, 25730108, 25730141 
-Dự án: Tetris Console Game
-Ngày hoàn thành: April 2026
+- Tác giả: 25730131, 25730120, 25730138, 25730108, 25730141 
+- Dự án: Tetris Console Game
+- Ngày hoàn thành: April 2026
 
 ---
 

@@ -124,6 +124,6 @@ Game (Bộ điều khiển chính)
 
 ---
 
-**Tác giả**: 25730131, 25730120, 25730138, 25730108, 25730141 
-**Cập nhật lần cuối**: Tháng 4 năm 2026  
-**Giấy phép**: Sử dụng cho mục đích học tập
+**Tác giả**: 25730131, 25730120, 25730138, 25730108, 25730141  
+**Cập nhật lần cuối**: Tháng 4 năm 2026   
+**Giấy phép**: Sử dụng cho mục đích học tập 
