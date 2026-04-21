@@ -1,129 +1,129 @@
-# 🎮 Tetris Console Game
+# 🎮 Game Tetris Console
 
-A classic Tetris game implemented in C++ with Object-Oriented design and cross-platform support (Windows, macOS, Linux).
+Game Tetris (Xếp hình) cổ điển được lập trình bằng C++ với thiết kế hướng đối tượng (OOP) và hỗ trợ đa nền tảng (Windows, macOS, Linux).
 
-## 🚀 Quick Start
+## 🚀 Bắt đầu nhanh
 
-### 1. Compile
+### 1. Biên dịch (Compile)
 ```bash
 cd TetrisConsole
 g++ -std=c++11 -o tetris *.cpp
 ```
 
-### 2. Run
+### 2. Chạy
 ```bash
 ./tetris
 ```
 
-### 3. Play
+### 3. Chơi game
 ```
-A/D  - Move left/right
-X    - Drop faster
-Q    - Quit
+A/D  - Di chuyển trái/phải
+X    - Rơi nhanh
+Q    - Thoát
 ```
 
-## ✨ Features
-- ✅ 7 Tetris pieces: I, O, T, S, Z, J, L
-- ✅ Automatic gravity (500ms per frame)
-- ✅ Collision detection & line clearing
-- ✅ Cross-platform support (Windows/macOS/Linux)
-- ✅ OOP architecture (4 independent classes)
-- ✅ Non-blocking keyboard input
+## ✨ Tính năng
+- ✅ 7 loại khối Tetris: I, O, T, S, Z, J, L
+- ✅ Gravity tự động (mỗi 500ms)
+- ✅ Phát hiện va chạm & xóa dòng đầy
+- ✅ Hỗ trợ đa nền tảng (Windows/macOS/Linux)
+- ✅ Kiến trúc OOP (4 lớp độc lập)
+- ✅ Xử lý input không chặn (non-blocking)
 
-## 📁 Project Structure
+## 📁 Cấu trúc dự án
 ```
 TetrisConsole/
-├── main.cpp              - Entry point (5 lines)
-├── Block.h/cpp           - Tetris piece class
-├── Board.h/cpp           - Game grid management
-├── Game.h/cpp            - Game loop controller
-├── Platform.h/cpp        - Cross-platform abstraction
-├── README.md             - This file
-├── DOCUMENTATION.md      - Full documentation
-└── tetris                - Compiled executable
+├── main.cpp              - Điểm vào chương trình
+├── Block.h/cpp           - Lớp Tetris piece
+├── Board.h/cpp           - Lớp quản lý lưới game
+├── Game.h/cpp            - Lớp điều phối game loop
+├── Platform.h/cpp        - Lớp trừu tượng đa nền tảng
+├── README.md             - File này
+├── DOCUMENTATION.md      - Tài liệu chi tiết
+└── tetris                - Tệp thực thi (executable)
 ```
 
-## 🏗️ Architecture Overview
+## 🏗️ Tổng quan kiến trúc
 
 ```
-Game (Main Controller)
-├─ Board (20x15 grid)
-│  ├─ init()           - Initialize board
-│  ├─ draw()           - Render to terminal
-│  ├─ canMove()        - Collision detection
-│  ├─ placeBlock()     - Write block to board
-│  ├─ removeBlock()    - Erase block from board
-│  └─ removeLine()     - Clear filled lines
+Game (Bộ điều khiển chính)
+├─ Board (lưới 20x15)
+│  ├─ init()           - Khởi tạo board
+│  ├─ draw()           - Vẽ lên terminal
+│  ├─ canMove()        - Phát hiện va chạm
+│  ├─ placeBlock()     - Ghi block lên board
+│  ├─ removeBlock()    - Xóa block khỏi board
+│  └─ removeLine()     - Xóa dòng đầy
 │
 ├─ Block (Tetris Piece)
-│  ├─ 7 piece types (I, O, T, S, Z, J, L)
-│  ├─ moveX/moveY      - Position updates
-│  └─ getCell()        - Get block cell content
+│  ├─ 7 loại khối (I, O, T, S, Z, J, L)
+│  ├─ moveX/moveY      - Cập nhật vị trí
+│  └─ getCell()        - Lấy nội dung ô
 │
-└─ Platform (OS-specific I/O)
-   ├─ Input class      - Non-blocking keyboard
-   └─ Console class    - Screen management
+└─ Platform (I/O tuỳ thuộc OS)
+   ├─ Lớp Input        - Bàn phím không chặn
+   └─ Lớp Console      - Quản lý màn hình
 ```
 
-## 📊 Statistics
-| Metric | Value |
-|--------|-------|
-| **Total Lines** | 502 |
-| **Classes** | 4 |
-| **Methods** | 30+ |
-| **Supported OS** | 3 (Win/Mac/Linux) |
-| **C++ Standard** | C++11 |
+## 📊 Thống kê
+| Chỉ số | Giá trị |
+|--------|--------|
+| **Tổng dòng code** | 502 |
+| **Lớp (Classes)** | 4 |
+| **Hàm (Methods)** | 30+ |
+| **Hỗ trợ OS** | 3 (Win/Mac/Linux) |
+| **Chuẩn C++** | C++11 |
 
-## 🖥️ System Requirements
-- **Compiler**: GCC 4.7+, Clang 3.3+, or MSVC 2012+
-- **Terminal**: 80x24 minimum
-- **OS**: Windows, macOS, or Linux
+## 🖥️ Yêu cầu hệ thống
+- **Compiler**: GCC 4.7+, Clang 3.3+, hoặc MSVC 2012+
+- **Terminal**: Tối thiểu 80x24
+- **OS**: Windows, macOS, hoặc Linux
 
-## 📖 Documentation
-- **[DOCUMENTATION.md](DOCUMENTATION.md)** - Complete project documentation
-  - Detailed class explanations
-  - Game loop walkthrough
-  - Troubleshooting guide
-  - Future improvements
+## 📖 Tài liệu
+- **[DOCUMENTATION.md](DOCUMENTATION.md)** - Tài liệu hoàn chỉnh
+  - Giải thích chi tiết các lớp
+  - Walkthrough game loop
+  - Hướng dẫn xử sự cố
+  - Các cải tiến trong tương lai
 
-## 🔄 Game Loop (Every 500ms)
-1. Remove old block position
-2. Process keyboard input (a/d/x/q)
-3. Apply gravity (fall 1 row)
-4. Check for line completion & clear
-5. Render board to terminal
-6. Sleep 500ms
+## 🔄 Vòng lặp game (mỗi 500ms)
+1. Xóa vị trí block cũ
+2. Xử lý input từ bàn phím (a/d/x/q)
+3. Áp dụng gravity (khối rơi 1 ô)
+4. Kiểm tra xóa dòng đầy
+5. Vẽ board lên terminal
+6. Đợi 500ms
 
-## 🚀 Future Enhancements
-- [ ] Block rotation
-- [ ] Score system & high score
-- [ ] Difficulty levels
-- [ ] Ghost block preview
-- [ ] Sound effects
-- [ ] Next piece display
+## 🚀 Tính năng sắp thêm
+- [ ] Xoay khối (Rotation)
+- [ ] Hệ thống điểm & điểm cao nhất
+- [ ] Các cấp độ khó khác nhau
+- [ ] Xem trước khối tiếp theo (Ghost block)
+- [ ] Hiệu ứng âm thanh
+- [ ] Hiển thị khối sắp tới
 
-## 📝 Version History
-- **v2.0** (Current) - OOP refactored with cross-platform support
-- **v1.0** - Original procedural implementation
+## 📝 Lịch sử phiên bản
+- **v2.0** (Hiện tại) - Refactor OOP với hỗ trợ đa nền tảng
+- **v1.0** - Triển khai procedural ban đầu
 
-## 🐛 Common Issues & Solutions
+## 🐛 Các vấn đề thường gặp & Giải pháp
 
-### Terminal corrupted after exiting
-**Solution**: Rerun the game (it auto-restores) or type `reset`
+### Terminal bị lỗi sau khi thoát game
+**Giải pháp**: Chạy lại game (tự động khôi phục) hoặc gõ `reset`
 
-### Can't see blocks moving
-**Possible causes**:
-- Terminal too small (needs 80x24)
-- Check if game is running with `./tetris`
+### Không thấy khối di chuyển
+**Nguyên nhân có thể**:
+- Terminal quá nhỏ (cần 80x24)
+- Kiểm tra game đã chạy: `./tetris`
 
-### Compilation error
-**Ensure**:
-- C++11 compiler: `g++ -std=c++11`
-- All files in same directory
-- No modification to source files
+### Lỗi biên dịch
+**Đảm bảo**:
+- Dùng C++11: `g++ -std=c++11`
+- Tất cả file ở cùng thư mục
+- Không sửa đổi tệp nguồn
 
 ---
 
-**Author**: Oanh Pham  
-**Last Updated**: April 2026  
-**License**: Educational use
+**Tác giả**: 25730131, 25730120, 25730138, 25730108, 25730141 
+**Cập nhật lần cuối**: Tháng 4 năm 2026  
+**Giấy phép**: Sử dụng cho mục đích học tập

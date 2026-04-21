@@ -8,12 +8,16 @@
 5. [Hướng dẫn sử dụng](#hướng-dẫn-sử-dụng)
 6. [Kiến trúc dự án](#kiến-trúc-dự-án)
 7. [Chi tiết các lớp](#chi-tiết-các-lớp)
-8. [Hướng phát triển](#hướng-phát-triển)
-9. [Các vấn đề & Giải pháp](#các-vấn-đề--giải-pháp)
-
+8. [Game Loop chi tiết](#game-loop-chi-tiết)
+9. [Hướng phát triển](#hướng-phát-triển)
+10. [Các vấn đề & Giải pháp](#các-vấn-đề--giải-pháp)
+11. [Thống kê dự án](#thống-kê-dự-án)
+12. [Tài liệu tham khảo](#tài-liệu-tham-khảo)
+13. [Tác giả](#tác-giả)
+14. [Hỗ trợ & Feedback](#hỗ-trợ--feedback)
 ---
 
-## 🎯 Tổng quan dự án
+## 1. Tổng quan dự án
 
 **Tên**: Tetris Console Game  
 **Ngôn ngữ**: C++ (C++11)  
@@ -31,7 +35,7 @@ v2.0 (Refactor)  → OOP architecture (502 lines, 4 classes, cross-platform)
 
 ---
 
-## ✨ Tính năng
+## 2. Tính năng
 
 ### Tính năng chính
 - ✅ **7 loại khối Tetris**: I, O, T, S, Z, J, L
@@ -48,7 +52,7 @@ v2.0 (Refactor)  → OOP architecture (502 lines, 4 classes, cross-platform)
 
 ---
 
-## 🖥️ Yêu cầu hệ thống
+## 3. Yêu cầu hệ thống
 
 ### Yêu cầu tối thiểu
 - **C++ Compiler**: GCC 4.7+ hoặc clang 3.3+
@@ -64,7 +68,7 @@ v2.0 (Refactor)  → OOP architecture (502 lines, 4 classes, cross-platform)
 
 ---
 
-## 🚀 Cài đặt & Chạy
+## 4. Cài đặt & Chạy
 
 ### 1. Clone dự án
 ```bash
@@ -104,7 +108,7 @@ make clean
 
 ---
 
-## 🎮 Hướng dẫn sử dụng
+## 5. Hướng dẫn sử dụng
 
 ### Điều khiển
 | Phím | Chức năng |
@@ -152,7 +156,7 @@ Bấm X:
 
 ---
 
-## 🏗️ Kiến trúc dự án
+## 6. Kiến trúc dự án
 
 ### Cấu trúc File
 ```
@@ -170,7 +174,7 @@ TetrisConsole/
 ```
 ┌──────────────────────────────────────┐
 │             main()                   │
-│     (5 lines - entry point)          │
+│          (entry point)               │
 └──────────────┬───────────────────────┘
                │
                ↓
@@ -190,7 +194,7 @@ TetrisConsole/
     │        │        │        │
     ├────────┤        ├────────┤
     │- board │        │- blocks│
-    │[20×15] │        │ (16)   │
+    │[20×15] │        │ (7)    │
     └────┬───┘        └────┬───┘
          │                 │
          └────────┬────────┘
@@ -222,11 +226,10 @@ Game (Aggregation)
 
 ---
 
-## 📖 Chi tiết các lớp
+## 7. Chi tiết các lớp
 
 ### 1. Block Class
 **File**: `Block.h`, `Block.cpp`
-
 **Mục đích**: Quản lý một khối Tetris
 
 **Public Methods**:
@@ -298,7 +301,6 @@ bool isRunning;       // Cờ vòng lặp
 
 ### 4. Platform Class
 **File**: `Platform.h`, `Platform.cpp`
-
 **Mục đích**: Tách biệt OS-specific code (Windows vs Unix)
 
 **Input Class** (Static methods):
@@ -321,7 +323,7 @@ static void setCursorHome();   // Cursor về đầu
 
 ---
 
-## 🔄 Game Loop (Vòng lặp chính)
+## 8. Game Loop (Vòng lặp chính)
 
 ### Flow của mỗi Frame (500ms)
 ```
@@ -384,7 +386,7 @@ while (isRunning) {
 
 ---
 
-## 🚀 Hướng phát triển
+## 9. Hướng phát triển
 
 ### Tính năng có thể thêm
 - [ ] **Rotation**: Xoay khối (implement `Block::rotate()`)
@@ -412,11 +414,10 @@ while (isRunning) {
 
 ---
 
-## 🐛 Các vấn đề & Giải pháp
+## 10. Các vấn đề & Giải pháp
 
 ### Vấn đề 1: Terminal bị lỗi sau khi thoát game
 **Nguyên nhân**: `Input::restoreConsole()` không được gọi
-
 **Giải pháp**: Destructor `~Game()` tự động restore console
 ```cpp
 Game::~Game() {
@@ -428,7 +429,6 @@ Game::~Game() {
 
 ### Vấn đề 2: Khối chỉ hiển thị I và O
 **Nguyên nhân**: `getRandomBlockType()` trả về `rand() % 7` nhưng Block.cpp có 7 loại
-
 **Giải pháp**: Tổ chức Block.cpp chỉ có 7 shape cơ bản
 ```cpp
 // Type 0: I-Block
@@ -444,7 +444,6 @@ Game::~Game() {
 
 ### Vấn đề 3: Input không hoạt động trên macOS/Linux
 **Nguyên nhân**: Dùng `conio.h` (chỉ có trên Windows)
-
 **Giải pháp**: Platform abstraction layer
 ```cpp
 #ifdef _WIN32
@@ -456,7 +455,7 @@ Game::~Game() {
 
 ---
 
-## 📊 Thống kê dự án
+## 11. Thống kê dự án
 
 | Metric | Giá trị |
 |--------|--------|
@@ -471,7 +470,7 @@ Game::~Game() {
 
 ---
 
-## 📚 Tài liệu tham khảo
+## 12. Tài liệu tham khảo
 
 ### C++ References
 - [cppreference.com](https://en.cppreference.com/) - C++ Standard Library
@@ -487,21 +486,14 @@ Game::~Game() {
 
 ---
 
-## 👨‍💻 Tác giả
-
-**Oanh Pham**  
+## 👨13. Tác giả
+Tác giả: 25730131, 25730120, 25730138, 25730108, 25730141 
 Dự án: Tetris Console Game (Refactor từ Procedural → OOP)  
 Ngày hoàn thành: April 2026
 
 ---
 
-## 📄 Giấy phép
-
-Dự án này là để học tập, không có giấy phép cụ thể.
-
----
-
-## 📞 Hỗ trợ & Feedback
+## 14. Hỗ trợ & Feedback
 
 Nếu có vấn đề:
 1. Kiểm tra **Các vấn đề & Giải pháp** phía trên
