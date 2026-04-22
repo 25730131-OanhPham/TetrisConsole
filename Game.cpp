@@ -3,14 +3,14 @@
 #include <cstdlib>
 #include <ctime>
 #include <thread>
-#include <chrono>
-using namespace std;
 
 Game::Game() 
     : currentBlock(rand() % 7, 5, 0), isRunning(true) {
     srand(time(0));
     board.init();
     Input::setupConsole();
+    // lần rơi cuối là hiện tại
+    lastFallTime = chrono::steady_clock::now();
 }
 
 Game::~Game() {
@@ -27,7 +27,7 @@ void Game::spawnNewBlock() {
 }
 
 void Game::handleInput() {
-    if (Input::isKeyPressed()) {
+    while (Input::isKeyPressed()) {
         char c = Input::getChar();
         if ((c == 'a' || c == 'A') && board.canMove(currentBlock, -1, 0)) 
             currentBlock.moveX(-1);
@@ -46,16 +46,23 @@ void Game::update() {
     
     // Handle input (key board)
     handleInput();
-    
-    // Apply gravity
-    if (board.canMove(currentBlock, 0, 1)) {
+    auto now = chrono::steady_clock::now();
+    auto elapsed = chrono::duration_cast<chrono::milliseconds>(now - lastFallTime).count();
+    if (elapsed >= 500)
+    {
+        if (board.canMove(currentBlock, 0, 1)) {
         currentBlock.moveY(1);
-    } else {
-        // Place block and spawn new one
-        board.placeBlock(currentBlock);
-        board.removeLine();
-        spawnNewBlock();
+        } else {
+            // Place block and spawn new one
+            board.placeBlock(currentBlock);
+            board.removeLine();
+            spawnNewBlock();
+        }
+        lastFallTime = now;
     }
+
+    // Apply gravity
+    
     
     // Place current block on board
     board.placeBlock(currentBlock);
@@ -64,7 +71,7 @@ void Game::update() {
     board.draw();
     
     // Game loop speed
-    this_thread::sleep_for(chrono::milliseconds(500));
+    this_thread::sleep_for(chrono::milliseconds(30));
 }
 
 void Game::start() {
