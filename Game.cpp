@@ -4,7 +4,6 @@
 #include <ctime>
 #include <thread>
 
-
 Game::Game() 
     : currentBlock(rand() % 7, 5, 0), isRunning(true) {
     srand(time(0));

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
+
 using namespace std;
 
 Board::Board() {}
@@ -20,7 +21,21 @@ void Board::draw() const {
     Console::clear();
     for (int i = 0; i < HEIGHT; i++, cout << endl)
         for (int j = 0; j < WIDTH; j++) 
-            cout << board[i][j];
+        {
+            if (board[i][j] == '*')
+            {
+                cout << u8"██";
+            }
+            else if (board[i][j] == '#') 
+            {
+                cout << "##";
+            }
+            else
+            {
+                cout << board[i][j] << board[i][j];
+            }
+        }
+            
 }
 
 bool Board::canMove(const Block& block, int dx, int dy) const {
