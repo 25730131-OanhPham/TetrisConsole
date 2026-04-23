@@ -12,17 +12,17 @@ private:
 public:
     Board();
     
-    // Board initialization and management
+  
     void init();
     void draw() const;
     
-    // Block-board interaction
+
     bool canMove(const Block& block, int dx, int dy) const;
     void placeBlock(const Block& block);
     void removeBlock(const Block& block);
-    void removeLine();
+    int removeLine();
     
-    // Getters
+
     int getHeight() const { return HEIGHT; }
     int getWidth() const { return WIDTH; }
     char getCell(int row, int col) const;
