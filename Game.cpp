@@ -59,8 +59,8 @@ void Game::update() {
                 
                 fallSpeed -= linesCleared * 50; 
               
-                if (fallSpeed < 50) {
-                    fallSpeed = 50;
+                if (fallSpeed < 100) {
+                    fallSpeed = 100;
                 }
             }
             spawnNewBlock();
