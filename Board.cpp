@@ -18,7 +18,7 @@ void Board::init() {
 }
 
 void Board::draw() const {
-    Console::clear();
+    Console::setCursorHome();
     for (int i = 0; i < HEIGHT; i++, cout << endl)
         for (int j = 0; j < WIDTH; j++) 
         {
@@ -90,8 +90,26 @@ bool Board::isLineFull(int row) const {
     return true;
 }
 
-void Board::removeLine() {
-    // Diem viet ham o day nha em
+int Board::removeLine() {
+    int linesRemoved = 0;
+    for (int i = HEIGHT - 2; i > 0; i--) {
+        if (isLineFull(i)) {
+            linesRemoved++;
+            
+            for (int k = i; k > 1; k--) {
+                for (int j = 1; j < WIDTH - 1; j++) {
+                    board[k][j] = board[k - 1][j];
+                }
+            }
+           
+            for (int j = 1; j < WIDTH - 1; j++) {
+                board[1][j] = ' ';
+            }
+            
+            i++; 
+        }
+    }
+    return linesRemoved;
 }
 
 char Board::getCell(int row, int col) const {

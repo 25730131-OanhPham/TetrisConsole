@@ -5,11 +5,11 @@
 #include <thread>
 
 Game::Game() 
-    : currentBlock(rand() % 7, 5, 0), isRunning(true) {
+    : currentBlock(rand() % 7, 5, 0), isRunning(true), fallSpeed(500) {
     srand(time(0));
     board.init();
     Input::setupConsole();
-    // lần rơi cuối là hiện tại
+
     lastFallTime = chrono::steady_clock::now();
 }
 
@@ -41,36 +41,39 @@ void Game::handleInput() {
 }
 
 void Game::update() {
-    // Remove old block from board
-    board.removeBlock(currentBlock);
     
-    // Handle input (key board)
+    board.removeBlock(currentBlock);
+
     handleInput();
     auto now = chrono::steady_clock::now();
     auto elapsed = chrono::duration_cast<chrono::milliseconds>(now - lastFallTime).count();
-    if (elapsed >= 500)
+    if (elapsed >= fallSpeed)
     {
         if (board.canMove(currentBlock, 0, 1)) {
-        currentBlock.moveY(1);
+            currentBlock.moveY(1);
         } else {
-            // Place block and spawn new one
+
             board.placeBlock(currentBlock);
-            board.removeLine();
+            int linesCleared = board.removeLine();
+            if (linesCleared > 0) {
+                
+                fallSpeed -= linesCleared * 50; 
+              
+                if (fallSpeed < 100) {
+                    fallSpeed = 100;
+                }
+            }
             spawnNewBlock();
         }
         lastFallTime = now;
     }
-
-    // Apply gravity
-    
-    
-    // Place current block on board
+ 
     board.placeBlock(currentBlock);
     
-    // Draw
+   
     board.draw();
     
-    // Game loop speed
+
     this_thread::sleep_for(chrono::milliseconds(30));
 }
 

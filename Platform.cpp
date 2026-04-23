@@ -1,7 +1,7 @@
 #include "Platform.h"
 
 #ifdef _WIN32
-    // Windows implementation
+   
     #include <conio.h>
     
     bool Input::isKeyPressed() {
@@ -13,23 +13,26 @@
     }
     
     void Input::setupConsole() {
-        // Windows console already supports raw mode
+       
     }
     
     void Input::restoreConsole() {
-        // Nothing to restore on Windows
+       
     }
     
     void Console::clear() {
         system("cls");
     }
     
+    #include <windows.h>
     void Console::setCursorHome() {
-        system("cls");
+        HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+        COORD Position = {0, 0};
+        SetConsoleCursorPosition(hOut, Position);
     }
 
 #else
-    // Unix/Linux/macOS implementation
+  
     #include <termios.h>
     #include <unistd.h>
     #include <sys/select.h>
@@ -57,14 +60,14 @@
     }
     
     void Input::setupConsole() {
-        // Save old settings
+    
         tcgetattr(STDIN_FILENO, &oldSettings);
         newSettings = oldSettings;
         
-        // Disable canonical mode and echo
+        
         newSettings.c_lflag &= ~(ICANON | ECHO);
-        newSettings.c_cc[VMIN] = 0;   // Non-blocking
-        newSettings.c_cc[VTIME] = 0;  // No timeout
+        newSettings.c_cc[VMIN] = 0;  
+        newSettings.c_cc[VTIME] = 0;  
         
         // Save old stdin flags
         oldFlags = fcntl(STDIN_FILENO, F_GETFL, 0);
@@ -79,13 +82,13 @@
     }
     
     void Console::clear() {
-        // ANSI escape code for clear screen
+        
         std::cout << "\033[2J\033[H";
         std::cout.flush();
     }
     
     void Console::setCursorHome() {
-        // ANSI escape code for cursor home
+        
         std::cout << "\033[H";
         std::cout.flush();
     }
