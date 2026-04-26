@@ -5,6 +5,7 @@ class Block {
 private:
     static const char blocks[16][4][4];
     int blockType;
+    int rotation;
     int x, y;
 
 public:
@@ -43,7 +44,8 @@ public:
     // Rotation
     void rotate() 
     {
-        /* TODO: implement rotation */ 
+        if (blockType != 1)
+            rotation = (rotation + 1) & 3;
     }
 };
 
