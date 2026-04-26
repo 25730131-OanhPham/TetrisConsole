@@ -29,6 +29,12 @@ void Game::spawnNewBlock() {
 void Game::handleInput() {
     while (Input::isKeyPressed()) {
         char c = Input::getChar();
+        if (c == 'w' || c == 'W') {
+            Block rotatedBlock = currentBlock;
+            rotatedBlock.rotate();
+            if (board.canMove(rotatedBlock, 0, 0))
+                currentBlock.rotate();
+        }
         if ((c == 'a' || c == 'A') && board.canMove(currentBlock, -1, 0)) 
             currentBlock.moveX(-1);
         if ((c == 'd' || c == 'D') && board.canMove(currentBlock, 1, 0)) 
