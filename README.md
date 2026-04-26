@@ -18,7 +18,7 @@ g++ -std=c++11 -o tetris *.cpp
 ### 3. Chơi game
 ```
 A/D  - Di chuyển trái/phải
-X    - Rơi nhanh
+S    - Rơi nhanh
 Q    - Thoát
 ```
 

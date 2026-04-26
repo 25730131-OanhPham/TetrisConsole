@@ -84,12 +84,21 @@ const char Block::blocks[16][4][4] = {
 };
 
 Block::Block(int type, int startX, int startY) 
-    : blockType(type), x(startX), y(startY) {}
+    : blockType(type), rotation(0), x(startX), y(startY) {}
 
 char Block::getCell(int row, int col) const 
 {
     if (row < 0 || row >= 4 || col < 0 || col >= 4) 
         return ' ';
 
-    return blocks[blockType][row][col];
+    switch (rotation) {
+    case 1:
+        return blocks[blockType][3 - col][row];
+    case 2:
+        return blocks[blockType][3 - row][3 - col];
+    case 3:
+        return blocks[blockType][col][3 - row];
+    default:
+        return blocks[blockType][row][col];
+    }
 }
