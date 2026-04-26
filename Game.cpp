@@ -39,7 +39,7 @@ void Game::handleInput() {
             currentBlock.moveX(-1);
         if ((c == 'd' || c == 'D') && board.canMove(currentBlock, 1, 0)) 
             currentBlock.moveX(1);
-        if ((c == 'x' || c == 'X') && board.canMove(currentBlock, 0, 1)) 
+        if ((c == 's' || c == 'S') && board.canMove(currentBlock, 0, 1)) 
             currentBlock.moveY(1);
         if ((c == 'q' || c == 'Q')) 
             isRunning = false;
