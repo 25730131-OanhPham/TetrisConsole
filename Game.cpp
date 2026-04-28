@@ -16,7 +16,6 @@ Game::Game()
 Game::~Game() {
     Input::restoreConsole();
 }
-
 int Game::getRandomBlockType() const {
     return rand() % 7;
 }

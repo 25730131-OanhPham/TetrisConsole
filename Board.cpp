@@ -9,12 +9,14 @@ using namespace std;
 Board::Board() {}
 
 void Board::init() {
-    for (int i = 0; i < HEIGHT; i++)
-        for (int j = 0; j < WIDTH; j++)
+    for (int i = 0; i < HEIGHT; i++) {
+        for (int j = 0; j < WIDTH; j++) {
             if (i == 0 || i == HEIGHT - 1 || j == 0 || j == WIDTH - 1) 
                 board[i][j] = '#';
             else 
                 board[i][j] = ' ';
+        }
+    }
 }
 
 void Board::draw() const {
@@ -47,7 +49,7 @@ bool Board::canMove(const Block& block, int dx, int dy) const {
                 
                 if (xt < 1 || xt >= WIDTH - 1 || yt >= HEIGHT - 1) 
                     return false;
-                if (board[yt][xt] != ' ') 
+                if (yt >= 0 && board[yt][xt] != ' ')
                     return false;
             }
         }
@@ -92,7 +94,6 @@ bool Board::isLineFull(int row) const {
 
 void Board::removeLine() {
     for (int i = HEIGHT - 2; i >= 1; i--) {
-
         if (isLineFull(i)) {
             // Dồn các dòng phía trên xuống
             for (int k = i; k > 1; k--) {
