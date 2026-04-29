@@ -3,6 +3,7 @@
 #ifdef _WIN32
     // Windows implementation
     #include <conio.h>
+    #include <windows.h>
     
     bool Input::isKeyPressed() {
         return _kbhit() != 0;
@@ -26,6 +27,12 @@
     
     void Console::setCursorHome() {
         system("cls");
+    }
+    
+    void Console::setupEncoding() {
+        // Setup UTF-8 encoding for Windows console
+        SetConsoleOutputCP(CP_UTF8);
+        SetConsoleCP(CP_UTF8);
     }
 
 #else
@@ -88,6 +95,12 @@
         // ANSI escape code for cursor home
         std::cout << "\033[H";
         std::cout.flush();
+    }
+    
+    void Console::setupEncoding() {
+        // Unix/Linux/macOS already use UTF-8 by default
+        // No specific setup needed
+        // Ensure locale is set correctly (usually done by system)
     }
 
 #endif

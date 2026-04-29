@@ -1,8 +1,12 @@
 #include "Game.h"
-#include <windows.h>
+#include "Platform.h"
+
 int main() {
-    SetConsoleOutputCP(CP_UTF8);
+    // Setup console for all platforms
+    Console::setupEncoding();
+    
     Game game;
     game.start();
+    
     return 0;
 }

@@ -27,6 +27,9 @@ public:
     
     // Set cursor to home position
     static void setCursorHome();
+    
+    // Setup console encoding (UTF-8 support)
+    static void setupEncoding();
 };
 
 #endif
