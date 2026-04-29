@@ -92,6 +92,20 @@ bool Board::isLineFull(int row) const {
     return true;
 }
 
+bool Board::isBoardFull(const Block& block) const
+{
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            if (block.getCell(i, j) != ' ') {
+                int posY = block.getY() + i;
+                if (posY <= 1)
+                    return true;
+            }
+        }
+    }
+    return false;
+}
+
 void Board::removeLine() {
     for (int i = HEIGHT - 2; i >= 1; i--) {
         if (isLineFull(i)) {

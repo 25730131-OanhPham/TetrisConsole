@@ -60,8 +60,12 @@ void Game::update() {
         } else {
             // Place block and spawn new one
             board.placeBlock(currentBlock);
-            board.removeLine();
-            spawnNewBlock();
+            if (board.isBoardFull(currentBlock)) {
+                isRunning = false;
+            } else {
+                board.removeLine();
+                spawnNewBlock();
+            }
         }
         lastFallTime = now;
     }
@@ -71,7 +75,6 @@ void Game::update() {
     
     // Place current block on board
     board.placeBlock(currentBlock);
-    
     // Draw
     board.draw();
     
