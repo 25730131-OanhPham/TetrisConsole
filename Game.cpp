@@ -5,7 +5,7 @@
 #include <thread>
 
 Game::Game() 
-    : currentBlock(rand() % 7, 5, 0), isRunning(true) {
+    : currentBlock(rand() % 7, 5, 0), isRunning(true), score(0) {
     srand(time(0));
     board.init();
     Input::setupConsole();
@@ -61,7 +61,8 @@ void Game::update() {
         } else {
             // Place block and spawn new one
             board.placeBlock(currentBlock);
-            board.removeLine();
+            int cleared = board.removeLine();
+            score += cleared * 100;
             spawnNewBlock();
         }
         lastFallTime = now;
@@ -75,6 +76,7 @@ void Game::update() {
     
     // Draw
     board.draw();
+    cout << "Score: " << score << endl;
     
     // Game loop speed
     this_thread::sleep_for(chrono::milliseconds(30));
@@ -90,4 +92,7 @@ void Game::start() {
 
 bool Game::isGameOver() const {
     return !isRunning;
+}
+int Game::getscore() const {
+    return score;
 }
