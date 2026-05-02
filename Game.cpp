@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <thread>
+#include <fstream>
 
 Game::Game() 
     : currentBlock(rand() % 7, 5, 0), isRunning(true), score(0) {
