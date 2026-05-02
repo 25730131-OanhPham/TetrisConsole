@@ -21,11 +21,11 @@ public:
     
     void start();
     void update();
-    void savescore();
     void handleInput();
     void spawnNewBlock();
     bool isGameOver() const;
-    int getscore() const;
+    int getScore() const;
+    void saveScore();
 private:
     int getRandomBlockType() const;
 };
