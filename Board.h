@@ -20,7 +20,7 @@ public:
     bool canMove(const Block& block, int dx, int dy) const;
     void placeBlock(const Block& block);
     void removeBlock(const Block& block);
-    void removeLine();
+    int removeLine();
     
     // Getters
     int getHeight() const { return HEIGHT; }

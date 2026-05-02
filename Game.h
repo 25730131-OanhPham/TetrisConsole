@@ -9,6 +9,7 @@ using namespace std;
 
 class Game {
 private:
+    int score;
     Board board;
     Block currentBlock;
     bool isRunning;
@@ -23,7 +24,8 @@ public:
     void handleInput();
     void spawnNewBlock();
     bool isGameOver() const;
-    
+    int getScore() const;
+    void saveScore();
 private:
     int getRandomBlockType() const;
 };

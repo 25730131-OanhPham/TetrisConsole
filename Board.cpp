@@ -90,8 +90,25 @@ bool Board::isLineFull(int row) const {
     return true;
 }
 
-void Board::removeLine() {
-    // Diem viet ham o day nha em
+int Board::removeLine() {
+    int count = 0;
+
+    for (int i = HEIGHT - 2; i >= 1; i--) {
+        if (isLineFull(i)) {
+            count++;
+            for (int k = i; k > 1; k--) {
+                for (int j = 1; j < WIDTH - 1; j++) {
+                    board[k][j] = board[k - 1][j];
+                }
+            }
+            for (int j = 1; j < WIDTH - 1; j++) {
+                board[1][j] = ' ';
+            }
+            i++;
+        }
+    }
+
+    return count;
 }
 
 char Board::getCell(int row, int col) const {
