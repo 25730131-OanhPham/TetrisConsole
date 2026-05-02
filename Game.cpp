@@ -54,6 +54,7 @@ void Game::update() {
     
     // Handle input (key board)
     handleInput();
+    if (!isRunning) return;
     auto now = chrono::steady_clock::now();
     auto elapsed = chrono::duration_cast<chrono::milliseconds>(now - lastFallTime).count();
     if (elapsed >= 500)
@@ -91,22 +92,25 @@ void Game::start() {
         update();
     }
     cout << "Game Over! Your score: " << score << endl;
-    savescore();
+    saveScore();
+    
+    this_thread::sleep_for(chrono::seconds(3));
 }
 
 bool Game::isGameOver() const {
     return !isRunning;
 }
-int Game::getscore() const {
+int Game::getScore() const {
     return score;
 }
-void Game::savescore() {
+void Game::saveScore() {
     ofstream file("score.txt", ios::app);
 
     if (!file) {
         cout << "Cannot open file!" << endl;
         return;
     }
+    cout << "Saving score..." << endl;
 
     file << "Score: " << score << endl;
     file.close();
