@@ -21,6 +21,7 @@ public:
     
     void start();
     void update();
+    void saveScore();
     void handleInput();
     void spawnNewBlock();
     bool isGameOver() const;

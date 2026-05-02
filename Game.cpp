@@ -97,3 +97,11 @@ bool Game::isGameOver() const {
 int Game::getscore() const {
     return score;
 }
+void Game::saveScore() {
+    ofstream file("score.txt", ios:: app);
+
+    if(file.is_open()) {
+        file << "Score: " << score << endl;
+        file.close(); 
+    }
+}
