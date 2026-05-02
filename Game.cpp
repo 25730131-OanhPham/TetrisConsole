@@ -4,6 +4,7 @@
 #include <ctime>
 #include <thread>
 #include <fstream>
+#include <iostream>
 
 Game::Game() 
     : currentBlock(rand() % 7, 5, 0), isRunning(true), score(0) {
@@ -89,6 +90,8 @@ void Game::start() {
     while (isRunning) {
         update();
     }
+    cout << "Game Over! Your score: " << score << endl;
+    savescore();
 }
 
 bool Game::isGameOver() const {
@@ -97,11 +100,14 @@ bool Game::isGameOver() const {
 int Game::getscore() const {
     return score;
 }
-void Game::saveScore() {
-    ofstream file("score.txt", ios:: app);
+void Game::savescore() {
+    ofstream file("score.txt", ios::app);
 
-    if(file.is_open()) {
-        file << "Score: " << score << endl;
-        file.close(); 
+    if (!file) {
+        cout << "Cannot open file!" << endl;
+        return;
     }
+
+    file << "Score: " << score << endl;
+    file.close();
 }
