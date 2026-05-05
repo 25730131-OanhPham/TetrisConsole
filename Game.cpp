@@ -5,7 +5,7 @@
 #include <thread>
 
 Game::Game() 
-    : currentBlock(rand() % 7, 5, 0), isRunning(true) {
+    : currentBlock(rand() % 7, 5, 1), isRunning(true) {
     srand(time(0));
     board.init();
     Input::setupConsole();
@@ -22,8 +22,8 @@ int Game::getRandomBlockType() const {
 }
 
 void Game::spawnNewBlock() {
-    currentBlock.setPosition(5, 0);
-    currentBlock = Block(getRandomBlockType(), 5, 0);
+    currentBlock.setPosition(5, 1);
+    currentBlock = Block(getRandomBlockType(), 5, 1);
 }
 
 void Game::handleInput() {
