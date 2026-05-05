@@ -5,8 +5,7 @@
 #include <thread>
 
 Game::Game() 
-    : currentBlock(rand() % 7, 5, 0), isRunning(true) {
-    srand(time(0));
+    : currentBlock(rand() % 7, 5, 0), nextBlock(rand() % 7, 5, 0), isRunning(true) {
     board.init();
     Input::setupConsole();
     // lần rơi cuối là hiện tại
@@ -22,8 +21,9 @@ int Game::getRandomBlockType() const {
 }
 
 void Game::spawnNewBlock() {
+    currentBlock = nextBlock;
     currentBlock.setPosition(5, 0);
-    currentBlock = Block(getRandomBlockType(), 5, 0);
+    nextBlock = Block(getRandomBlockType(), 5, 0);
 }
 
 void Game::handleInput() {
@@ -74,14 +74,14 @@ void Game::update() {
     board.placeBlock(currentBlock);
     
     // Draw
-    board.draw();
+    board.draw(nextBlock);
     
     // Game loop speed
     this_thread::sleep_for(chrono::milliseconds(30));
 }
 
 void Game::start() {
-    board.draw();
+    board.draw(nextBlock);
     
     while (isRunning) {
         update();

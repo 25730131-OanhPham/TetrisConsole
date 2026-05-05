@@ -14,7 +14,7 @@ public:
     
     // Board initialization and management
     void init();
-    void draw() const;
+    void draw(const Block& nextBlock) const;
     
     // Block-board interaction
     bool canMove(const Block& block, int dx, int dy) const;
