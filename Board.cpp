@@ -19,23 +19,36 @@ void Board::init() {
 
 void Board::draw() const {
     Console::clear();
-    for (int i = 0; i < HEIGHT; i++, cout << endl)
+    
+    cout << "╔";
+    for (int j = 0; j < WIDTH * 2; j++) cout << "═";
+    cout << "╗" << endl;
+
+    for (int i = 0; i < HEIGHT; i++) {
+        cout << "║";
         for (int j = 0; j < WIDTH; j++) 
         {
             if (board[i][j] == '*')
             {
-                cout << u8"██";
+                cout << "██";
             }
             else if (board[i][j] == '#') 
             {
-                cout << "##";
+                if (j == 0) cout << " +";
+                else if (j == WIDTH - 1) cout << "+ ";
+                else cout << "  ";
             }
             else
             {
                 cout << board[i][j] << board[i][j];
             }
         }
-            
+        cout << "║" << endl;
+    }
+
+    cout << "╚";
+    for (int j = 0; j < WIDTH * 2; j++) cout << "═";
+    cout << "╝" << endl;
 }
 
 bool Board::canMove(const Block& block, int dx, int dy) const {
