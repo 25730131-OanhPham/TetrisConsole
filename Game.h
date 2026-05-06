@@ -11,6 +11,7 @@ class Game {
 private:
     Board board;
     Block currentBlock;
+    Block nextBlock;
     bool isRunning;
     // Thêm 1 biến thời gian cho lần rơi block cuối cùng. Fix issu #1
     chrono::steady_clock::time_point lastFallTime;
