@@ -48,7 +48,7 @@ void Board::draw(const Block& nextBlock) const {
             }
             cout << "##";
         } else if (i == 2 || i == 7) {
-            cout << "##########";
+            cout << "############";
         }
     }
 }
