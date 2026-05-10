@@ -9,17 +9,19 @@ using namespace std;
 Board::Board() {}
 
 void Board::init() {
-    for (int i = 0; i < HEIGHT; i++)
-        for (int j = 0; j < WIDTH; j++)
+    for (int i = 0; i < HEIGHT; i++) {
+        for (int j = 0; j < WIDTH; j++) {
             if (i == 0 || i == HEIGHT - 1 || j == 0 || j == WIDTH - 1) 
                 board[i][j] = '#';
             else 
                 board[i][j] = ' ';
+        }
+    }
 }
 
-void Board::draw() const {
+void Board::draw(const Block& nextBlock) const {
     Console::clear();
-    for (int i = 0; i < HEIGHT; i++, cout << endl)
+    for (int i = 0; i < HEIGHT; i++, cout << endl) {
         for (int j = 0; j < WIDTH; j++) 
         {
             if (board[i][j] == '*')
@@ -35,7 +37,22 @@ void Board::draw() const {
                 cout << board[i][j] << board[i][j];
             }
         }
-            
+        cout << "    ";
+        if (i == 1) {
+            cout << "NEXT";
+        } else if (i >= 3 && i < 7) {
+            cout << "##";
+            for (int j = 0; j < 4; j++) {
+                if (nextBlock.getCell(i - 3, j) != ' ')
+                    cout << u8"██";
+                else
+                    cout << "  ";
+            }
+            cout << "##";
+        } else if (i == 2 || i == 7) {
+            cout << "############";
+        }
+    }
 }
 
 bool Board::canMove(const Block& block, int dx, int dy) const {
@@ -47,7 +64,7 @@ bool Board::canMove(const Block& block, int dx, int dy) const {
                 
                 if (xt < 1 || xt >= WIDTH - 1 || yt >= HEIGHT - 1) 
                     return false;
-                if (board[yt][xt] != ' ') 
+                if (yt >= 0 && board[yt][xt] != ' ')
                     return false;
             }
         }
@@ -90,9 +107,22 @@ bool Board::isLineFull(int row) const {
     return true;
 }
 
+bool Board::isBoardFull(const Block& block) const
+{
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            if (block.getCell(i, j) != ' ') {
+                int posY = block.getY() + i;
+                if (posY <= 1)
+                    return true;
+            }
+        }
+    }
+    return false;
+}
+
 int Board::removeLine() {
     int count = 0;
-
     for (int i = HEIGHT - 2; i >= 1; i--) {
         if (isLineFull(i)) {
             count++;
@@ -107,7 +137,6 @@ int Board::removeLine() {
             i++;
         }
     }
-
     return count;
 }
 

@@ -7,8 +7,7 @@
 #include <iostream>
 
 Game::Game() 
-    : currentBlock(rand() % 7, 5, 0), isRunning(true), score(0) {
-    srand(time(0));
+    : currentBlock(rand() % 7, 5, 0), nextBlock(rand() % 7, 5, 0), isRunning(true) {
     board.init();
     Input::setupConsole();
     // lần rơi cuối là hiện tại
@@ -18,14 +17,14 @@ Game::Game()
 Game::~Game() {
     Input::restoreConsole();
 }
-
 int Game::getRandomBlockType() const {
     return rand() % 7;
 }
 
 void Game::spawnNewBlock() {
+    currentBlock = nextBlock;
     currentBlock.setPosition(5, 0);
-    currentBlock = Block(getRandomBlockType(), 5, 0);
+    nextBlock = Block(getRandomBlockType(), 5, 0);
 }
 
 void Game::handleInput() {
@@ -67,6 +66,12 @@ void Game::update() {
             int cleared = board.removeLine();
             score += cleared * 100;
             spawnNewBlock();
+            if (board.isBoardFull(currentBlock)) {
+                isRunning = false;
+            } else {
+                board.removeLine();
+                spawnNewBlock();
+            }
         }
         lastFallTime = now;
     }
@@ -78,7 +83,7 @@ void Game::update() {
     board.placeBlock(currentBlock);
     
     // Draw
-    board.draw();
+    board.draw(nextBlock);
     cout << "Score: " << score << endl;
     
     // Game loop speed
@@ -86,7 +91,7 @@ void Game::update() {
 }
 
 void Game::start() {
-    board.draw();
+    board.draw(nextBlock);
     
     while (isRunning) {
         update();
