@@ -27,6 +27,7 @@ public:
     int getWidth() const { return WIDTH; }
     char getCell(int row, int col) const;
     bool isLineFull(int row) const;
+    bool isBoardFull(const Block& block) const;
 };
 
 #endif
