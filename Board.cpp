@@ -21,38 +21,36 @@ void Board::init() {
 
 void Board::draw(const Block& nextBlock) const {
     Console::clear();
-    for (int i = 0; i < HEIGHT; i++, cout << endl) {
+    
+    cout << "╔";
+    for (int j = 0; j < WIDTH * 2; j++) cout << "═";
+    cout << "╗" << endl;
+
+    for (int i = 0; i < HEIGHT; i++) {
+        cout << "║";
         for (int j = 0; j < WIDTH; j++) 
         {
             if (board[i][j] == '*')
             {
-                cout << u8"██";
+                cout << "██";
             }
             else if (board[i][j] == '#') 
             {
-                cout << "##";
+                if (j == 0) cout << " +";
+                else if (j == WIDTH - 1) cout << "+ ";
+                else cout << "  ";
             }
             else
             {
                 cout << board[i][j] << board[i][j];
             }
         }
-        cout << "    ";
-        if (i == 1) {
-            cout << "NEXT";
-        } else if (i >= 3 && i < 7) {
-            cout << "##";
-            for (int j = 0; j < 4; j++) {
-                if (nextBlock.getCell(i - 3, j) != ' ')
-                    cout << u8"██";
-                else
-                    cout << "  ";
-            }
-            cout << "##";
-        } else if (i == 2 || i == 7) {
-            cout << "############";
-        }
+        cout << "║" << endl;
     }
+
+    cout << "╚";
+    for (int j = 0; j < WIDTH * 2; j++) cout << "═";
+    cout << "╝" << endl;
 }
 
 bool Board::canMove(const Block& block, int dx, int dy) const {
