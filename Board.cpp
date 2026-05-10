@@ -121,22 +121,23 @@ bool Board::isBoardFull(const Block& block) const
     return false;
 }
 
-void Board::removeLine() {
+int Board::removeLine() {
+    int count = 0;
     for (int i = HEIGHT - 2; i >= 1; i--) {
         if (isLineFull(i)) {
-            // Dồn các dòng phía trên xuống
+            count++;
             for (int k = i; k > 1; k--) {
                 for (int j = 1; j < WIDTH - 1; j++) {
                     board[k][j] = board[k - 1][j];
                 }
             }
-            // Xóa dòng trên cùng (row = 1)
             for (int j = 1; j < WIDTH - 1; j++) {
                 board[1][j] = ' ';
             }
             i++;
         }
     }
+    return count;
 }
 
 char Board::getCell(int row, int col) const {

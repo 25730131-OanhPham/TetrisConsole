@@ -3,6 +3,8 @@
 #include <cstdlib>
 #include <ctime>
 #include <thread>
+#include <fstream>
+#include <iostream>
 
 Game::Game() 
     : currentBlock(rand() % 7, 5, 0), nextBlock(rand() % 7, 5, 0), isRunning(true) {
@@ -51,6 +53,7 @@ void Game::update() {
     
     // Handle input (key board)
     handleInput();
+    if (!isRunning) return;
     auto now = chrono::steady_clock::now();
     auto elapsed = chrono::duration_cast<chrono::milliseconds>(now - lastFallTime).count();
     if (elapsed >= 500)
@@ -60,6 +63,9 @@ void Game::update() {
         } else {
             // Place block and spawn new one
             board.placeBlock(currentBlock);
+            int cleared = board.removeLine();
+            score += cleared * 100;
+            spawnNewBlock();
             if (board.isBoardFull(currentBlock)) {
                 isRunning = false;
             } else {
@@ -78,6 +84,7 @@ void Game::update() {
     
     // Draw
     board.draw(nextBlock);
+    cout << "Score: " << score << endl;
     
     // Game loop speed
     this_thread::sleep_for(chrono::milliseconds(30));
@@ -89,8 +96,27 @@ void Game::start() {
     while (isRunning) {
         update();
     }
+    cout << "Game Over! Your score: " << score << endl;
+    saveScore();
+    
+    this_thread::sleep_for(chrono::seconds(3));
 }
 
 bool Game::isGameOver() const {
     return !isRunning;
+}
+int Game::getScore() const {
+    return score;
+}
+void Game::saveScore() {
+    ofstream file("score.txt", ios::app);
+
+    if (!file) {
+        cout << "Cannot open file!" << endl;
+        return;
+    }
+    cout << "Saving score..." << endl;
+
+    file << "Score: " << score << endl;
+    file.close();
 }
