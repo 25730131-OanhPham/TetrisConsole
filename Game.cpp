@@ -7,7 +7,7 @@
 #include <iostream>
 
 Game::Game() 
-    : currentBlock(rand() % 7, 5, 0), nextBlock(rand() % 7, 5, 0), isRunning(true) {
+    : score(0), currentBlock(rand() % 7, 5, 0), nextBlock(rand() % 7, 5, 0), isRunning(true) {
     board.init();
     Input::setupConsole();
     // lần rơi cuối là hiện tại
@@ -66,11 +66,9 @@ void Game::update() {
             int cleared = board.removeLine();
             score += cleared * 100;
             spawnNewBlock();
-            if (board.isBoardFull(currentBlock)) {
+            if (!board.canMove(currentBlock, 0, 0)) {
                 isRunning = false;
-            } else {
-                board.removeLine();
-                spawnNewBlock();
+                return;
             }
         }
         lastFallTime = now;

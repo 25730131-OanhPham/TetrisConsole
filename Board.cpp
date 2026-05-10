@@ -11,7 +11,7 @@ Board::Board() {}
 void Board::init() {
     for (int i = 0; i < HEIGHT; i++) {
         for (int j = 0; j < WIDTH; j++) {
-            if (i == 0 || i == HEIGHT - 1 || j == 0 || j == WIDTH - 1) 
+            if (i == HEIGHT - 1 || j == 0 || j == WIDTH - 1) 
                 board[i][j] = '#';
             else 
                 board[i][j] = ' ';
@@ -45,7 +45,24 @@ void Board::draw(const Block& nextBlock) const {
                 cout << board[i][j] << board[i][j];
             }
         }
-        cout << "║" << endl;
+        cout << "║";
+
+        if (i == 1) {
+            cout << "    NEXT";
+        } else if (i == 2 || i == 7) {
+            cout << "    +--------+";
+        } else if (i >= 3 && i < 7) {
+            cout << "    |";
+            for (int j = 0; j < 4; j++) {
+                if (nextBlock.getCell(i - 3, j) != ' ')
+                    cout << "██";
+                else
+                    cout << "  ";
+            }
+            cout << "|";
+        }
+
+        cout << endl;
     }
 
     cout << "╚";
@@ -111,7 +128,8 @@ bool Board::isBoardFull(const Block& block) const
         for (int j = 0; j < 4; j++) {
             if (block.getCell(i, j) != ' ') {
                 int posY = block.getY() + i;
-                if (posY <= 1)
+                int posX = block.getX() + j;
+                if (posY >= 0 && posY < HEIGHT && posX >= 0 && posX < WIDTH && board[posY][posX] != ' ')
                     return true;
             }
         }
