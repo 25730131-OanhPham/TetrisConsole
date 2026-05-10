@@ -14,19 +14,20 @@ public:
     
     // Board initialization and management
     void init();
-    void draw() const;
+    void draw(const Block& nextBlock) const;
     
     // Block-board interaction
     bool canMove(const Block& block, int dx, int dy) const;
     void placeBlock(const Block& block);
     void removeBlock(const Block& block);
-    void removeLine();
+    int removeLine();
     
     // Getters
     int getHeight() const { return HEIGHT; }
     int getWidth() const { return WIDTH; }
     char getCell(int row, int col) const;
     bool isLineFull(int row) const;
+    bool isBoardFull(const Block& block) const;
 };
 
 #endif
